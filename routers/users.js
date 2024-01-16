@@ -99,4 +99,22 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+router.delete("/:id", async(req,res) => {
+    try {
+        await User.deleteOne({_id: req.params.id});
+        res.status(200).json({success:true, message: "Deleted the user"})
+    } catch (error) {
+        res.status(500).json({success: false, error});
+    }
+})
+
+router.get("/get/count", async (req, res) => {
+  try {
+    const usersCount = await User.getDocuments();
+    res.status(200).json({ count: usersCount });
+  } catch (error) {
+    res.status(500).json({ success: false, error });
+  }
+});
+
 module.exports = router;

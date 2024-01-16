@@ -7,7 +7,7 @@ function auth() {
     .expressjwt({
       secret,
       algorithms: ["HS256"],
-      isRevoked: isRevoked
+      isRevoked,
     })
     .unless({
       path: [
@@ -19,9 +19,9 @@ function auth() {
     });
 }
 
-async function isRevoked(req,token,next){
-  console.log(!token.payload.isAdmin);
-  if(!token.payload.isAdmin){
+async function isRevoked(req, token, next) {
+  console.log(token.payload);
+  if (!token.payload.isAdmin) {
     return true;
   }
   return false;

@@ -17,13 +17,11 @@ app.use(express.json());
 app.use(morgan("tiny"));
 app.use(auth());
 
-
-app.use((err,req,res,next) => {
-  console.log(err);
-  if(err.name === "UnauthorizedError"){
-    res.status(500).json({message:"The user is not authorized"})
+app.use((err, req, res, next) => {
+  if (err.name === "UnauthorizedError") {
+    res.status(500).json({ message: "The user is not authorized" });
   }
-  return res.status(500).json({message:"Server Error"})
+  return res.status(500).json({ message: "Server Error" });
 });
 
 //routers
@@ -32,7 +30,6 @@ const cateogriesRouter = require("./routers/categories");
 const usersRouter = require("./routers/users");
 const ordersRouter = require("./routers/orders");
 app.use(`${api}/users`, usersRouter);
-
 
 app.use(`${api}/products`, productsRouter);
 app.use(`${api}/categories`, cateogriesRouter);
