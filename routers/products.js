@@ -57,6 +57,7 @@ router.delete("/:id", async (req, res) => {
       message: "The product is deleted successfully",
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ success: false, error });
   }
 });
